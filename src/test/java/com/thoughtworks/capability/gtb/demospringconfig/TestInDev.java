@@ -18,7 +18,7 @@ public class TestInDev {
     private MockMvc mockMvc;
 
     @Test
-    public void testGetLevelWhenEqual1() throws Exception {
+    public void testGetLevelWhenEqual0() throws Exception {
         mockMvc.perform(get("/level"))
                 .andExpect(content().string("basic"));
     }
