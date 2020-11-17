@@ -1,20 +1,26 @@
 package com.thoughtworks.capability.gtb.demospringconfig;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 
 @SpringBootTest
-@ActiveProfiles("dev")
+@AutoConfigureMockMvc
+@PropertySource("classpath:application-dev.properties")
 public class TestInDev {
     @Autowired
-    private LevelController levelController;
+    private MockMvc mockMvc;
 
     @Test
     public void testGetLevelWhenEqual0() throws Exception {
-        Assertions.assertEquals("basic",levelController.getLevel());
-
+        mockMvc.perform(get("/level"))
+                .andExpect(content().string("basic"));
     }
 }
